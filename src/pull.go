@@ -64,11 +64,10 @@ func getFile(pass, local, remote string) error {
 }
 
 func gitPull(remote string) error {
-	push := exec.Command("sh", "-c", fmt.Sprintf("git -C %s pull -v", remote))
-	push.Env = append(os.Environ(), "PATH=/data/data/com.termux/files/usr/bin:$PATH")
-	push.Stdout = os.Stdout
-	push.Stderr = os.Stderr
-	if err := push.Run(); err != nil {
+	add := exec.Command("git", "-C", remote, "pull")
+	add.Stdout = os.Stdout
+	add.Stderr = os.Stderr
+	if err := add.Run(); err != nil {
 		return err
 	}
 	return nil

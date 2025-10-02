@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cmd="$1"
 local="$2"
@@ -10,9 +10,8 @@ ask_password() {
 }
 
 pull() {
-  git -C $local pull   
+  git -C $remote pull   
   ask_password
-  echo $PASSWORD
   for file in $remote/*; do
     fname="${file##*/}"
     cat $file | gpg --decrypt --passphrase $PASSWORD --batch | tar -xzf - > $local$fname
